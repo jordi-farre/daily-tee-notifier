@@ -21,7 +21,7 @@ uploadArtifactS3() {
 }
 
 createFunction() {
-    FUNCTION_VERSION=$(aws lambda create-function --region us-east-1 --function-name $FUNCTION_NAME --code S3Bucket=${S3_BUCKET},S3Key=${RELEASE_NAME} --role ${ROLE_ARN} --handler tee.finder.qwertee.Application::handleRequest --runtime java8 --timeout 30 --memory-size 256 --environment Variables={QWERTEE_URL=https://www.qwertee.com/rss,S3_BUCKET=site-tees-production} --publish | jq -r '.Version')
+    FUNCTION_VERSION=$(aws lambda create-function --region us-east-1 --function-name $FUNCTION_NAME --code S3Bucket=${S3_BUCKET},S3Key=${RELEASE_NAME} --role ${ROLE_ARN} --handler tee.notifier.Application::handleRequest --runtime java8 --timeout 30 --memory-size 256 --environment Variables={QWERTEE_URL=https://www.qwertee.com/rss,S3_BUCKET=site-tees-production} --publish | jq -r '.Version')
     echo "Function $FUNCTION_NAME created with version $FUNCTION_VERSION"
     FUNCTION_ERROR=$(aws lambda invoke --function-name $FUNCTION_NAME /dev/null | jq -r ".FunctionError")
     echo "Function $FUNCTION_NAME executed with error $FUNCTION_ERROR"

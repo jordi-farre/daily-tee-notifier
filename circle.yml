@@ -2,7 +2,7 @@ deployment:
   production:
     branch: master
     commands:
-      - sh ./deployment.sh
+      - python ./deploy.py
 dependencies:
   pre:
     - sudo apt-get update; sudo apt-get install jq

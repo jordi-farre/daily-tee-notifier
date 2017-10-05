@@ -25,7 +25,7 @@ def create_package(package_name):
     shutil.make_archive(package_name, 'zip', ".")
 
 def upload_to_s3(source, bucket, key):
-    s3.meta.client.upload_file(File=source, Bucket=bucket, Key=key)
+    s3.meta.client.upload_file(Filename=source, Bucket=bucket, Key=key)
 
 
 if __name__ == '__main__':

@@ -19,7 +19,7 @@ def putRolePolicy(roleName, policyName, policyFileName):
 
 
 if __name__ == '__main__':
-    roleName = ""
+    roleName = "daily-tee-notifier-lambda-role"
     roleArn = createRole(roleName = roleName)
     putRolePolicy(roleName, "s3", "s3PolicyFile.json")
     putRolePolicy(roleName, "log", "logPolicyFile.json")

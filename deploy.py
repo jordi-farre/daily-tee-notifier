@@ -1,4 +1,6 @@
 import boto3
+import pip
+import shutil
 
 client = boto3.client("iam")
 
@@ -17,9 +19,14 @@ def putRolePolicy(roleName, policyName, policyFileName):
         policyContent = policyFile.read()
         client.put_role_policy(RoleName=roleName, PolicyName=policyName, PolicyDocument=policyContent)
 
+def createPackage(packageName):
+    pip.main(["install", "-r", "requirements.txt", "-t", "."])
+    shutil.make_archive(packageName, 'zip', ".")
+
 
 if __name__ == '__main__':
     roleName = "daily-tee-notifier-lambda-role"
     roleArn = createRole(roleName = roleName)
     putRolePolicy(roleName, "s3", "s3PolicyFile.json")
     putRolePolicy(roleName, "log", "logPolicyFile.json")
+    createPackage("daily-tee-notifier")

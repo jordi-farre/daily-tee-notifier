@@ -4,7 +4,7 @@ import shutil
 
 iamClient = boto3.client("iam")
 s3Client = boto3.resource('s3')
-lambdaClient = boto3.client('lambda')
+lambdaClient = boto3.client('lambda', region_name="us-east-1")
 roleName = "daily-tee-notifier-lambda-role"
 package = "daily-tee-notifier"
 packageZip = package + ".zip"

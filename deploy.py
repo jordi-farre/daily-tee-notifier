@@ -1,14 +1,17 @@
 import boto3
 import pip
 import shutil
+import os
 
 iamClient = boto3.client("iam")
 s3Client = boto3.resource('s3')
 lambdaClient = boto3.client('lambda', region_name="us-east-1")
 roleName = "daily-tee-notifier-lambda-role"
 package = "daily-tee-notifier"
-packageZip = package + ".zip"
 bucket = "daily-tee-finder-deployment"
+version = os.environ["CIRCLE_BUILD_NUM"]
+packageZip = package + ".zip"
+s3_key = package + "-" + version + ".zip"
 
 def create_role(role_name):
     try:
@@ -58,5 +61,5 @@ if __name__ == '__main__':
     put_role_policy(roleName, "s3", "s3PolicyFile.json")
     put_role_policy(roleName, "log", "logPolicyFile.json")
     create_package(package)
-    upload_to_s3(packageZip, bucket, packageZip)
-    createOrUpdateFunction(function_name=package, role_arn=roleArn, s3_bucket=bucket, s3_key=packageZip)
+    upload_to_s3(packageZip, bucket, s3_key)
+    createOrUpdateFunction(function_name=package, role_arn=roleArn, s3_bucket=bucket, s3_key=s3_key)

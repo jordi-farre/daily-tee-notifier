@@ -37,9 +37,8 @@ def upload_to_s3(source, bucket, key):
 
 def createOrUpdateFunction(function_name, role_arn, s3_bucket, s3_key):
     try:
-        function = lambdaClient.get_function(FunctionName=function_name)
-        updateFunction(function=function)
-        return function
+        lambdaClient.get_function(FunctionName=function_name)
+        return updateFunction(function_name=function_name, s3_bucket=s3_bucket, s3_key=s3_key)
     except lambdaClient.exceptions.ResourceNotFoundException:
         return createFunction(function_name=function_name, role_arn=role_arn, s3_bucket=s3_bucket, s3_key=s3_key)
 
@@ -53,8 +52,13 @@ def createFunction(function_name, role_arn, s3_bucket, s3_key):
         Publish=True
     )
 
-def updateFunction(function):
-    return
+def updateFunction(function_name, s3_bucket, s3_key):
+    return lambdaClient.update_function_code(
+        FunctionName=function_name,
+        S3Bucket=s3_bucket,
+        S3Key=s3_key,
+        Publish=True
+    )
 
 if __name__ == '__main__':
     roleArn = create_role(role_name= roleName)

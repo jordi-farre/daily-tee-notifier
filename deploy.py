@@ -37,7 +37,7 @@ def createOrUpdateFunction(function_name, role_arn, s3_bucket, s3_key):
         function = lambdaClient.get_function(FunctionName=function_name)
         updateFunction(function=function)
         return function
-    except iamClient.exceptions.NoSuchEntityException:
+    except lambdaClient.exceptions.ResourceNotFoundException:
         return createFunction(function_name=function_name, role_arn=role_arn, s3_bucket=s3_bucket, s3_key=s3_key)
 
 def createFunction(function_name, role_arn, s3_bucket, s3_key):

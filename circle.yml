@@ -1,0 +1,12 @@
+deployment:
+  production:
+    branch: master
+    commands:
+      - python3 ./deploy.py
+machine:
+  python:
+    version: 3.6.2
+dependencies:
+  pre:
+    - pip install boto3
+

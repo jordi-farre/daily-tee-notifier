@@ -2,11 +2,11 @@ deployment:
   production:
     branch: master
     commands:
-      - python3 ./deploy.py
+      - serverless deploy -v
 machine:
   python:
     version: 3.6.2
 dependencies:
   pre:
-    - pip install boto3
+    - npm install -g serverless
 

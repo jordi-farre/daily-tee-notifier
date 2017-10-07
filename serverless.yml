@@ -2,6 +2,7 @@ service: daily-tee-notifier
 provider:
   name: aws
   runtime: python3.6
+  stage: pro
 iamRoleStatements:
   - Effect: "Allow"
     Action:

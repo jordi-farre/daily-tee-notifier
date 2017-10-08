@@ -6,6 +6,9 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Execute tests
+          command: 'python3 -m unittest discover -p "*test.py"'
+      - run:
           name: Install aws sdk
           command: 'sudo pip3 install boto3'
       - deploy:

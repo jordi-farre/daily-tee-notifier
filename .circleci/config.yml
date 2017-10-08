@@ -7,7 +7,7 @@ jobs:
       - checkout
       - run:
           name: Install aws sdk
-          command: 'pip3 install boto3'
+          command: 'sudo pip3 install boto3'
       - deploy:
           name: Deploy lambda to aws
           command: |

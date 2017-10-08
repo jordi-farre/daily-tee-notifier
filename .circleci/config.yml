@@ -2,12 +2,9 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/python:3.6.1
+      - image: circleci/node:6.10.3
     steps:
       - checkout
-      - run:
-          name: Print linux version
-          command: 'cat /proc/version'
       - run:
           name: Install serverless
           command: 'sudo npm install -g serverless'

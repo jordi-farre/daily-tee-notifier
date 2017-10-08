@@ -26,13 +26,11 @@ provider:
 #  region: us-east-1
 
 # you can add statements to the Lambda function's IAM Role here
-iamRoleStatements:
-  - Effect: "Allow"
-    Action:
-      - "s3:PutObject"
-      - "s3:GetObject"
-      - "s3:DeleteObject"
-    Resource: { "Fn::Join" : ["*"] }
+#  iamRoleStatements:
+#    - Effect: "Allow"
+#      Action:
+#        - "s3:ListBucket"
+#      Resource: { "Fn::Join" : ["", ["arn:aws:s3:::", { "Ref" : "ServerlessDeploymentBucket" } ] ]  }
 #    - Effect: "Allow"
 #      Action:
 #        - "s3:PutObject"
@@ -58,7 +56,7 @@ iamRoleStatements:
 
 functions:
   hello:
-    handler: handler.handle
+    handler: handler.hello
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events

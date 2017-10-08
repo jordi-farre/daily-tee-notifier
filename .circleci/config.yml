@@ -6,11 +6,11 @@ jobs:
     steps:
       - checkout
       - run:
-        name: Install serverless
-        command: 'sudo npm install -g serverless'
+          name: Install serverless
+          command: 'sudo npm install -g serverless'
       - deploy:
-        name: Deploy lambda to aws
-        command: |
-          if [ "${CIRCLE_BRANCH}" == "master" ]; then
-            serverless deploy -v
-          fi
+          name: Deploy lambda to aws
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              serverless deploy -v
+            fi

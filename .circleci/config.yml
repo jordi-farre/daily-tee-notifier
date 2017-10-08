@@ -2,15 +2,15 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/node:6.10.3
+      - image: circleci/python:3.6.1
     steps:
       - checkout
       - run:
-          name: Install serverless
-          command: 'sudo npm install -g serverless'
+          name: Install aws sdk
+          command: 'pip install boto3'
       - deploy:
           name: Deploy lambda to aws
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              serverless deploy -v
+              python3 deploy.py
             fi
